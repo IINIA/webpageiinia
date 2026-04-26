@@ -9,6 +9,7 @@ import { ModelCarousel } from '@/components/home/model-carousel';
 import { AlliesSection } from '@/components/home/allies';
 import { ProcessSection } from '@/components/home/process-section';
 import { TrustBand } from '@/components/home/trust-band';
+import { VideoDemo } from '@/components/home/video-demo';
 import { ValueProps } from '@/components/home/value-props';
 import { FadeIn } from '@/components/anim/fade-in';
 import { Button } from '@/components/ui/button';
@@ -58,6 +59,7 @@ export default async function HomePage({ params: { locale } }: Props) {
     <>
       <Hero />
       <TrustBand locale={castedLocale} />
+      <VideoDemo locale={castedLocale} />
       <ProcessSection locale={castedLocale} />
       <AlliesSection
         locale={castedLocale}

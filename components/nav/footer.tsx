@@ -182,6 +182,11 @@ export function Footer() {
           <p className="text-center text-sm text-muted-foreground">
             © {new Date().getFullYear()} IINIA. All rights reserved.
           </p>
+          <p className="mt-2 text-center text-xs font-medium text-brand-600">
+            {locale === 'es'
+              ? 'IA industrial lista para producción'
+              : 'Production-ready industrial AI'}
+          </p>
         </div>
       </div>
     </footer>

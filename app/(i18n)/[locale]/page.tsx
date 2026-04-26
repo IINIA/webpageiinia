@@ -115,7 +115,12 @@ export default async function HomePage({ params: { locale } }: Props) {
                           {locale === 'es' ? caseStudy.industry.es : caseStudy.industry.en}
                         </span>
                         <h3 className="text-2xl font-semibold leading-snug">
-                          {locale === 'es' ? caseStudy.title.es : caseStudy.title.en}
+                          <Link
+                            href={`/${locale}/cases/${caseStudy.slug}`}
+                            className="transition-colors hover:text-brand-600"
+                          >
+                            {locale === 'es' ? caseStudy.title.es : caseStudy.title.en}
+                          </Link>
                         </h3>
                         <p className="text-sm font-medium text-muted-foreground">
                           {caseSection('client_prefix')}{' '}

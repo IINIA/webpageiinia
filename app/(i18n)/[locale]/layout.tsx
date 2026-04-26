@@ -1,10 +1,13 @@
 import { NextIntlClientProvider } from 'next-intl';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/nav/navbar';
 import { Footer } from '@/components/nav/footer';
 import { Analytics } from '@/components/analytics';
+import { JsonLd } from '@/components/seo/json-ld';
+import { organizationSchema, websiteSchema } from '@/lib/schema';
 import { Providers } from './providers';
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
@@ -61,6 +64,7 @@ export default async function LocaleLayout({
       <body className={inter.className}>
         <Providers>
           <NextIntlClientProvider messages={messages}>
+            <JsonLd data={[organizationSchema(locale), websiteSchema(locale)]} />
             <a href="#main-content" className="skip-to-content">
               Skip to content
             </a>
@@ -72,6 +76,7 @@ export default async function LocaleLayout({
           </NextIntlClientProvider>
         </Providers>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

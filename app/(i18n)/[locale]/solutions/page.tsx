@@ -7,7 +7,9 @@ import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/anim/fade-in';
 import Link from 'next/link';
 import { solutions } from '@/content/solutions';
+import { JsonLd } from '@/components/seo/json-ld';
 import { getLocalizedMetadata } from '@/lib/seo';
+import { servicesSchema } from '@/lib/schema';
 import { cn } from '@/lib/utils';
 
 type Props = {
@@ -30,9 +32,14 @@ export default async function SolutionsPage({ params: { locale } }: Props) {
   const t = await getTranslations('solutions');
   const localeKey = locale === 'es' ? 'es' : 'en';
   const highlightedSolutions = solutions.slice(0, 2);
+  const outcomes = {
+    vision: localeKey === 'es' ? 'Menos scrap y más inspección en línea' : 'Less scrap and more in-line inspection',
+    agents: localeKey === 'es' ? 'Menos fricción operativa y respuestas trazables' : 'Less operational friction and traceable answers',
+  };
 
   return (
     <div className="container mx-auto px-4 py-20">
+      <JsonLd data={servicesSchema(solutions, localeKey)} />
       <FadeIn>
         <div className="mb-16 text-center">
           <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
@@ -49,7 +56,7 @@ export default async function SolutionsPage({ params: { locale } }: Props) {
           <FadeIn key={index} delay={index * 0.1}>
             <Card
               className={cn(
-                'glass-card h-full transition-all hover:shadow-xl hover:-translate-y-1',
+                'glass-card h-full transition-all hover:shadow-2xl hover:-translate-y-1',
                 solution.card.backgroundImage &&
                   'relative overflow-hidden border border-white/60 bg-white/80 dark:border-white/10 dark:bg-slate-950/70 backdrop-blur'
               )}
@@ -71,9 +78,14 @@ export default async function SolutionsPage({ params: { locale } }: Props) {
                   />
                 </>
               )}
-              <CardHeader className={cn(solution.card.backgroundImage && 'relative z-10')}>
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-600 to-accent-500">
-                  <solution.card.icon className="h-7 w-7 text-white" />
+              <CardHeader className={cn('space-y-5', solution.card.backgroundImage && 'relative z-10')}>
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-600 to-accent-500 shadow-lg shadow-brand-600/20">
+                    <solution.card.icon className="h-7 w-7 text-white" />
+                  </div>
+                  <div className="rounded-full border border-brand-600/25 bg-brand-600/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-600">
+                    {localeKey === 'es' ? 'Producto IA' : 'AI product'}
+                  </div>
                 </div>
                 <CardTitle className="text-2xl text-slate-900 dark:text-white">
                   {solution.card.title[localeKey]}
@@ -102,14 +114,22 @@ export default async function SolutionsPage({ params: { locale } }: Props) {
                     </Badge>
                   ))}
                 </div>
+                <div className="mt-6 rounded-2xl border border-brand-600/25 bg-brand-600/10 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-brand-600">
+                    {localeKey === 'es' ? 'Resultado esperado' : 'Expected outcome'}
+                  </p>
+                  <p className="mt-2 text-sm font-medium text-slate-900 dark:text-white">
+                    {outcomes[solution.slug as keyof typeof outcomes] || solution.metadata.description[localeKey]}
+                  </p>
+                </div>
               </CardContent>
               <CardFooter className={cn(solution.card.backgroundImage && 'relative z-10')}>
                 <Button
-                  variant="ghost"
+                  variant="default"
                   className={cn(
                     'w-full',
                     solution.card.backgroundImage &&
-                      'text-slate-800 hover:text-slate-800 dark:text-white/90 dark:hover:text-white'
+                      'text-white hover:text-white'
                   )}
                   asChild
                 >

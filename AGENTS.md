@@ -10,7 +10,7 @@
 - This is a Next.js 14 App Router site. Real pages live under `app/(i18n)/[locale]/`; `app/layout.tsx` only returns children.
 - Supported locales are exactly `es` and `en`; middleware uses `localePrefix: 'always'` with default locale `es`.
 - `next-intl` is configured by `next.config.js` to load `./lib/i18n.ts`; translations are in `messages/es.json` and `messages/en.json`.
-- When adding a page, update the localized route, both message files, navigation in `components/nav/navbar.tsx` if it should be linked, and `app/sitemap.ts` for static sitemap routes.
+- When adding a page, update the localized route, both message files, navigation in `components/nav/navbar.tsx` or footer if it should be linked, and `app/sitemap.ts` for sitemap routes.
 - Path aliases come from `tsconfig.json`: `@/*`, `@/components/*`, `@/lib/*`, and `@/styles/*`.
 
 ## Content And SEO

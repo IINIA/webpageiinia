@@ -6,7 +6,9 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/anim/fade-in';
+import { JsonLd } from '@/components/seo/json-ld';
 import { getAllPosts, getPostBySlug } from '@/lib/blog';
+import { blogPostingSchema } from '@/lib/schema';
 import { formatDate } from '@/lib/utils';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 
@@ -56,6 +58,7 @@ export default async function BlogPostPage({ params: { locale, slug } }: Props) 
 
   return (
     <article className="container mx-auto px-4 py-20">
+      <JsonLd data={blogPostingSchema(post)} />
       <FadeIn>
         <div className="mx-auto max-w-3xl">
           <Button variant="ghost" size="sm" asChild className="mb-8">

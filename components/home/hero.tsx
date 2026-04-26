@@ -27,6 +27,21 @@ const HeroShowcase = dynamic(
 export function Hero() {
   const t = useTranslations('home.hero');
   const locale = useLocale();
+  const isEs = locale === 'es';
+  const metrics = [
+    {
+      value: '94%',
+      label: isEs ? 'menos errores de ensamble' : 'fewer assembly errors',
+    },
+    {
+      value: '120+',
+      label: isEs ? 'horas administrativas ahorradas al mes' : 'admin hours saved monthly',
+    },
+    {
+      value: '434k',
+      label: isEs ? 'activos urbanos mapeados con IA' : 'urban assets mapped with AI',
+    },
+  ];
 
   return (
     <section className="relative overflow-hidden py-20 lg:py-40">
@@ -69,6 +84,20 @@ export function Hero() {
                   {t('cta_secondary')}
                 </Link>
               </Button>
+            </div>
+
+            <div className="mx-auto mt-10 grid max-w-4xl gap-3 rounded-3xl border border-brand-600/20 bg-background/75 p-3 shadow-xl shadow-brand-600/10 backdrop-blur md:grid-cols-3">
+              {metrics.map((metric) => (
+                <div
+                  key={metric.value}
+                  className="rounded-2xl border border-border/50 bg-muted/30 px-5 py-4 text-left md:text-center"
+                >
+                  <div className="text-3xl font-bold tracking-tight text-brand-600">
+                    {metric.value}
+                  </div>
+                  <p className="mt-1 text-sm text-muted-foreground">{metric.label}</p>
+                </div>
+              ))}
             </div>
 
             <div className="mt-20 space-y-8">

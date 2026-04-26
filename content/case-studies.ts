@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react';
 import { BadgeCheck, CheckCircle, Clock, Trees } from 'lucide-react';
 
 export type CaseStudy = {
+  slug: string;
   title: {
     es: string;
     en: string;
@@ -33,10 +34,20 @@ export type CaseStudy = {
     value: string;
     icon: LucideIcon;
   }>;
+  challenge: {
+    es: string;
+    en: string;
+  };
+  solution: {
+    es: string;
+    en: string;
+  };
+  stack: string[];
 };
 
 export const caseStudies: CaseStudy[] = [
   {
+    slug: 'teleflex-inspeccion-kits-medicos',
     title: {
       es: 'Inspección automática de kits médicos',
       en: 'Automated medical kit inspection',
@@ -70,8 +81,18 @@ export const caseStudies: CaseStudy[] = [
         icon: CheckCircle,
       },
     ],
+    challenge: {
+      es: 'La operación requería validar componentes de kits médicos en línea sin aumentar tiempos de ciclo ni depender de inspección manual al final del proceso.',
+      en: 'The operation needed to validate medical kit components in-line without increasing cycle times or relying on manual end-of-line inspection.',
+    },
+    solution: {
+      es: 'IINIA desplegó visión artificial en tiempo real con captura controlada, modelos de detección y alertas para operadores antes de liberar cada kit.',
+      en: 'IINIA deployed real-time computer vision with controlled capture, detection models, and operator alerts before each kit was released.',
+    },
+    stack: ['Computer Vision', 'Edge AI', 'NVIDIA', 'Quality Inspection'],
   },
   {
+    slug: 'hubbell-seguridad-loto',
     title: {
       es: 'Seguridad operativa con LOTO',
       en: 'Operational safety with LOTO',
@@ -105,8 +126,18 @@ export const caseStudies: CaseStudy[] = [
         icon: BadgeCheck,
       },
     ],
+    challenge: {
+      es: 'El equipo necesitaba reforzar cumplimiento LOTO con verificación objetiva y trazabilidad operativa para reducir exposición a riesgos.',
+      en: 'The team needed to reinforce LOTO compliance with objective verification and operational traceability to reduce risk exposure.',
+    },
+    solution: {
+      es: 'Se integró un flujo de validación con visión, reglas de cumplimiento y evidencia digital para supervisar puntos críticos del procedimiento.',
+      en: 'A validation workflow combined vision, compliance rules, and digital evidence to supervise critical procedure checkpoints.',
+    },
+    stack: ['Safety AI', 'Computer Vision', 'Workflow Automation', 'Compliance'],
   },
   {
+    slug: 'juarez-limpio-deteccion-urbana',
     title: {
       es: 'Detección urbana inteligente',
       en: 'Intelligent urban detection',
@@ -140,8 +171,18 @@ export const caseStudies: CaseStudy[] = [
         icon: Trees,
       },
     ],
+    challenge: {
+      es: 'La planeación urbana requería inventarios confiables de activos verdes a escala ciudad para priorizar mantenimiento y asignación de recursos.',
+      en: 'Urban planning required reliable city-scale green asset inventories to prioritize maintenance and resource allocation.',
+    },
+    solution: {
+      es: 'Se aplicaron modelos de detección sobre imágenes geoespaciales para mapear árboles, consolidar métricas y habilitar decisiones operativas.',
+      en: 'Detection models were applied to geospatial imagery to map trees, consolidate metrics, and enable operational decisions.',
+    },
+    stack: ['Geospatial AI', 'Object Detection', 'Urban Analytics', 'Data Visualization'],
   },
   {
+    slug: 'space-automatizacion-documental',
     title: {
       es: 'Automatización documental',
       en: 'Document automation',
@@ -175,6 +216,18 @@ export const caseStudies: CaseStudy[] = [
         icon: Clock,
       },
     ],
+    challenge: {
+      es: 'Procesos administrativos consumían horas en captura, revisión y validación de documentos repetitivos con alta variabilidad de formatos.',
+      en: 'Administrative processes consumed hours in repetitive document capture, review, and validation across highly variable formats.',
+    },
+    solution: {
+      es: 'IINIA implementó extracción OCR, validaciones automáticas y flujo de revisión para acelerar gestión documental y reducir retrabajo.',
+      en: 'IINIA implemented OCR extraction, automated validations, and review workflows to speed up document management and reduce rework.',
+    },
+    stack: ['OCR', 'Document AI', 'Workflow Automation', 'Validation Rules'],
   },
 ];
 
+export function getCaseStudyBySlug(slug: string) {
+  return caseStudies.find((caseStudy) => caseStudy.slug === slug) || null;
+}

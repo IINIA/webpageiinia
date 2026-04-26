@@ -1,4 +1,7 @@
 import { MetadataRoute } from 'next';
+import { caseStudies } from '@/content/case-studies';
+import { solutions } from '@/content/solutions';
+import { getAllPosts } from '@/lib/blog';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://iinia.com';
@@ -14,12 +17,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/blog',
     '/careers',
     '/partners',
+    '/privacy',
+    '/terms',
   ];
 
   const sitemap: MetadataRoute.Sitemap = [];
 
   locales.forEach((locale) => {
-    routes.forEach((route) => {
+    const dynamicRoutes = [
+      ...solutions.map((solution) => `/solutions/${solution.slug}`),
+      ...caseStudies.map((caseStudy) => `/cases/${caseStudy.slug}`),
+      ...getAllPosts(locale).map((post) => `/blog/${post.slug}`),
+    ];
+
+    [...routes, ...dynamicRoutes].forEach((route) => {
       sitemap.push({
         url: `${baseUrl}/${locale}${route}`,
         lastModified: new Date(),

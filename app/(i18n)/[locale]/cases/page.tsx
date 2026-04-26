@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
+import Link from 'next/link';
 import { caseStudies } from '@/content/case-studies';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { FadeIn } from '@/components/anim/fade-in';
 import { getLocalizedMetadata } from '@/lib/seo';
 
@@ -71,10 +73,15 @@ export default async function CasesPage({ params: { locale } }: Props) {
                     <p className="text-muted-foreground">
                       {locale === 'es' ? caseStudy.description.es : caseStudy.description.en}
                     </p>
+                    <Button variant="ghost" className="mt-6 px-0" asChild>
+                      <Link href={`/${locale}/cases/${caseStudy.slug}`}>
+                        {locale === 'es' ? 'Ver caso completo' : 'View full case'}
+                      </Link>
+                    </Button>
                   </CardContent>
                 </div>
 
-                <div className="border-t border-border/60 bg-muted/20 p-6 lg:border-l lg:border-t-0">
+                <div className="border-t border-border/60 bg-gradient-to-br from-brand-600/10 via-muted/20 to-accent-500/10 p-6 lg:border-l lg:border-t-0">
                   <h3 className="mb-6 text-sm font-semibold uppercase tracking-wider">
                     {locale === 'es' ? 'Resultados' : 'Results'}
                   </h3>
@@ -87,7 +94,19 @@ export default async function CasesPage({ params: { locale } }: Props) {
                             {locale === 'es' ? metric.label.es : metric.label.en}
                           </span>
                         </div>
-                        <div className="text-3xl font-bold text-brand-600">{metric.value}</div>
+                        <div className="text-5xl font-bold tracking-tight text-brand-600">
+                          {metric.value}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-8 grid grid-cols-3 gap-2 text-center text-xs text-muted-foreground">
+                    {(locale === 'es'
+                      ? ['Diagnóstico', 'Piloto', 'Escala']
+                      : ['Assess', 'Pilot', 'Scale']
+                    ).map((step) => (
+                      <div key={step} className="rounded-xl border bg-background/70 px-2 py-3">
+                        {step}
                       </div>
                     ))}
                   </div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
@@ -14,6 +15,7 @@ import { useTheme } from 'next-themes';
 export function Navbar() {
   const t = useTranslations('nav');
   const locale = useLocale();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -31,8 +33,9 @@ export function Navbar() {
     { name: t('cases'), href: `/${locale}/cases` },
     { name: t('about'), href: `/${locale}/about` },
     { name: t('blog'), href: `/${locale}/blog` },
-    { name: t('contact'), href: `/${locale}/contact` },
   ];
+
+  const isActive = (href: string) => pathname === href || (href !== `/${locale}` && pathname.startsWith(`${href}/`));
 
   return (
     <header className="sticky top-0 z-50 w-full border-b glass">
@@ -48,14 +51,21 @@ export function Navbar() {
               priority
             />
           </div>
-          <span className="text-xl font-bold">IINIA Industrial Intelligence & AI Solutions</span>
+          <span className="text-xl font-bold">IINIA</span>
+          <span className="hidden text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground xl:inline">
+            Industrial AI
+          </span>
         </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center space-x-1 md:flex">
           {navigation.map((item) => (
             <Link key={item.href} href={item.href}>
-              <Button variant="ghost" size="sm">
+              <Button
+                variant={isActive(item.href) ? 'secondary' : 'ghost'}
+                size="sm"
+                className={isActive(item.href) ? 'text-brand-600' : undefined}
+              >
                 {item.name}
               </Button>
             </Link>
@@ -66,6 +76,11 @@ export function Navbar() {
         <div className="flex items-center space-x-2">
           <LanguageSwitch />
           <ThemeToggle />
+          <Button size="sm" className="hidden md:inline-flex" asChild>
+            <Link href={`/${locale}/contact`}>
+              {locale === 'es' ? 'Agenda demo' : 'Book demo'}
+            </Link>
+          </Button>
 
           {/* Mobile menu trigger */}
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -86,6 +101,13 @@ export function Navbar() {
                     {item.name}
                   </Link>
                 ))}
+                <Link
+                  href={`/${locale}/contact`}
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-lg bg-brand-600 px-4 py-3 text-center text-lg font-medium text-white transition-colors hover:bg-brand-900"
+                >
+                  {locale === 'es' ? 'Agenda demo' : 'Book demo'}
+                </Link>
               </div>
             </SheetContent>
           </Sheet>

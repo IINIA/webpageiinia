@@ -6,6 +6,7 @@ import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/nav/navbar';
 import { Footer } from '@/components/nav/footer';
 import { Analytics } from '@/components/analytics';
+import { FloatingWhatsApp } from '@/components/floating-whatsapp';
 import { JsonLd } from '@/components/seo/json-ld';
 import { organizationSchema, websiteSchema } from '@/lib/schema';
 import { Providers } from './providers';
@@ -73,6 +74,7 @@ export default async function LocaleLayout({
               {children}
             </main>
             <Footer />
+            <FloatingWhatsApp />
           </NextIntlClientProvider>
         </Providers>
         <Analytics />

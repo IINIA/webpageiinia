@@ -1,47 +1,4 @@
-import { DefaultSeoProps } from 'next-seo';
 import type { Metadata } from 'next';
-
-export const defaultSEO: DefaultSeoProps = {
-  titleTemplate: '%s | IINIA',
-  defaultTitle: 'IINIA - Industrial AI Solutions',
-  description: 'Advanced industrial artificial intelligence solutions for manufacturing optimization',
-  openGraph: {
-    type: 'website',
-    locale: 'es_ES',
-    url: 'https://iinia.com/',
-    siteName: 'IINIA',
-    images: [
-      {
-        url: 'https://iinia.com/og/default.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'IINIA Industrial AI',
-      },
-    ],
-  },
-  twitter: {
-    handle: '@iinia',
-    site: '@iinia',
-    cardType: 'summary_large_image',
-  },
-  additionalLinkTags: [
-    {
-      rel: 'icon',
-      href: '/favicon.ico',
-    },
-    {
-      rel: 'apple-touch-icon',
-      href: '/apple-touch-icon.png',
-      sizes: '180x180',
-    },
-  ],
-  additionalMetaTags: [
-    {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1',
-    },
-  ],
-};
 
 export function getPageSEO(
   title: string,

@@ -97,6 +97,31 @@ export default function CaseStudyPage({ params: { locale, slug } }: Props) {
 
           <div className="grid gap-8 lg:grid-cols-3">
             <section className="space-y-8 lg:col-span-2">
+              <div className="grid gap-4 md:grid-cols-2">
+                <Card className="glass-card border-destructive/20">
+                  <CardContent className="p-6">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                      {localeKey === 'es' ? 'Antes' : 'Before'}
+                    </p>
+                    <h2 className="mt-3 text-2xl font-semibold">
+                      {localeKey === 'es' ? 'Proceso con fricción' : 'Friction-heavy process'}
+                    </h2>
+                    <p className="mt-3 text-muted-foreground">{caseStudy.challenge[localeKey]}</p>
+                  </CardContent>
+                </Card>
+                <Card className="glass-card border-brand-600/30">
+                  <CardContent className="p-6">
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-600">
+                      {localeKey === 'es' ? 'Después' : 'After'}
+                    </p>
+                    <h2 className="mt-3 text-2xl font-semibold">
+                      {caseStudy.metrics[0]?.value} {caseStudy.metrics[0]?.label[localeKey]}
+                    </h2>
+                    <p className="mt-3 text-muted-foreground">{caseStudy.solution[localeKey]}</p>
+                  </CardContent>
+                </Card>
+              </div>
+
               <Card className="glass-card">
                 <CardContent className="space-y-4 p-6">
                   <h2 className="text-2xl font-semibold">

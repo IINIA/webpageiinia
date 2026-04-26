@@ -63,7 +63,7 @@ export function HeroShowcase() {
               loop
               muted
               playsInline
-              preload="metadata"
+              preload="none"
               aria-hidden="true"
             >
               <source src={heroVideoSrc} type="video/webm" />

@@ -1,12 +1,8 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import Image from 'next/image';
-import Link from 'next/link';
 import { caseStudies } from '@/content/case-studies';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { FadeIn } from '@/components/anim/fade-in';
+import { CaseList } from '@/components/cases/case-list';
 import { getLocalizedMetadata } from '@/lib/seo';
 
 type Props = {
@@ -41,81 +37,7 @@ export default async function CasesPage({ params: { locale } }: Props) {
         </div>
       </FadeIn>
 
-      <div className="space-y-12">
-        {caseStudies.map((caseStudy, index) => (
-          <FadeIn key={index} delay={index * 0.1}>
-            <Card className="glass-card overflow-hidden">
-              <div className="grid gap-8 lg:grid-cols-3">
-                <div className="lg:col-span-2 flex flex-col">
-                  <div className="relative h-48 w-full overflow-hidden border-b border-border/40">
-                    <Image
-                      src={caseStudy.image.src}
-                      alt={locale === 'es' ? caseStudy.image.alt.es : caseStudy.image.alt.en}
-                      fill
-                      priority={index === 0}
-                      sizes="(min-width: 1024px) 60vw, 100vw"
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-transparent" />
-                  </div>
-                  <CardHeader className="space-y-4">
-                    <Badge variant="brand" className="w-fit">
-                      {locale === 'es' ? caseStudy.industry.es : caseStudy.industry.en}
-                    </Badge>
-                    <CardTitle className="text-2xl lg:text-3xl">
-                      {locale === 'es' ? caseStudy.title.es : caseStudy.title.en}
-                    </CardTitle>
-                    <CardDescription className="text-base">
-                      {locale === 'es' ? caseStudy.client.es : caseStudy.client.en}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground">
-                      {locale === 'es' ? caseStudy.description.es : caseStudy.description.en}
-                    </p>
-                    <Button variant="ghost" className="mt-6 px-0" asChild>
-                      <Link href={`/${locale}/cases/${caseStudy.slug}`}>
-                        {locale === 'es' ? 'Ver caso completo' : 'View full case'}
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </div>
-
-                <div className="border-t border-border/60 bg-gradient-to-br from-brand-600/10 via-muted/20 to-accent-500/10 p-6 lg:border-l lg:border-t-0">
-                  <h3 className="mb-6 text-sm font-semibold uppercase tracking-wider">
-                    {locale === 'es' ? 'Resultados' : 'Results'}
-                  </h3>
-                  <div className="space-y-6">
-                    {caseStudy.metrics.map((metric, idx) => (
-                      <div key={idx}>
-                        <div className="mb-2 flex items-center gap-2 text-muted-foreground">
-                          <metric.icon className="h-4 w-4" />
-                          <span className="text-sm">
-                            {locale === 'es' ? metric.label.es : metric.label.en}
-                          </span>
-                        </div>
-                        <div className="text-5xl font-bold tracking-tight text-brand-600">
-                          {metric.value}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="mt-8 grid grid-cols-3 gap-2 text-center text-xs text-muted-foreground">
-                    {(locale === 'es'
-                      ? ['Diagnóstico', 'Piloto', 'Escala']
-                      : ['Assess', 'Pilot', 'Scale']
-                    ).map((step) => (
-                      <div key={step} className="rounded-xl border bg-background/70 px-2 py-3">
-                        {step}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </FadeIn>
-        ))}
-      </div>
+      <CaseList caseStudies={caseStudies} locale={locale} />
     </div>
   );
 }

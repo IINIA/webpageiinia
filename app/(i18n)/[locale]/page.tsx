@@ -7,6 +7,8 @@ import { getPageSEO } from '@/lib/seo';
 import { Hero } from '@/components/home/hero';
 import { ModelCarousel } from '@/components/home/model-carousel';
 import { AlliesSection } from '@/components/home/allies';
+import { ProcessSection } from '@/components/home/process-section';
+import { TrustBand } from '@/components/home/trust-band';
 import { ValueProps } from '@/components/home/value-props';
 import { FadeIn } from '@/components/anim/fade-in';
 import { Button } from '@/components/ui/button';
@@ -55,6 +57,8 @@ export default async function HomePage({ params: { locale } }: Props) {
   return (
     <>
       <Hero />
+      <TrustBand locale={castedLocale} />
+      <ProcessSection locale={castedLocale} />
       <AlliesSection
         locale={castedLocale}
         copy={{

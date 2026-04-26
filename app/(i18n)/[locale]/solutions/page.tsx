@@ -36,6 +36,10 @@ export default async function SolutionsPage({ params: { locale } }: Props) {
     vision: localeKey === 'es' ? 'Menos scrap y más inspección en línea' : 'Less scrap and more in-line inspection',
     agents: localeKey === 'es' ? 'Menos fricción operativa y respuestas trazables' : 'Less operational friction and traceable answers',
   };
+  const problems = {
+    vision: localeKey === 'es' ? 'Inspecciones manuales lentas, defectos escapados y poca trazabilidad visual.' : 'Slow manual inspections, escaped defects, and limited visual traceability.',
+    agents: localeKey === 'es' ? 'Conocimiento disperso entre documentos, tickets y sistemas internos.' : 'Knowledge spread across documents, tickets, and internal systems.',
+  };
 
   return (
     <div className="container mx-auto px-4 py-20">
@@ -100,6 +104,24 @@ export default async function SolutionsPage({ params: { locale } }: Props) {
                 >
                   {solution.card.description[localeKey]}
                 </CardDescription>
+                <div className="mb-4 grid gap-3 rounded-2xl border bg-background/70 p-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {localeKey === 'es' ? 'Problema' : 'Problem'}
+                    </p>
+                    <p className="mt-1 text-sm text-foreground/85">
+                      {problems[solution.slug as keyof typeof problems] || solution.card.description[localeKey]}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                      {localeKey === 'es' ? 'Qué hace IINIA' : 'What IINIA does'}
+                    </p>
+                    <p className="mt-1 text-sm text-foreground/85">
+                      {solution.metadata.description[localeKey]}
+                    </p>
+                  </div>
+                </div>
                 <div className="flex flex-wrap gap-2">
                   {solution.card.tags.map((tag) => (
                     <Badge

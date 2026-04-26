@@ -41,4 +41,4 @@ Industrial AI is not the future - it's the present. Companies that adopt these t
 
 ---
 
-*This is placeholder content. Replace with real article.*
+At IINIA we prioritize implementations that can prove value on the shop floor: available data, clear owners, business metrics, and a safe deployment path.

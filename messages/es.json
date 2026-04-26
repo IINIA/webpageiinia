@@ -129,8 +129,8 @@
       "email": "Email",
       "company": "Empresa",
       "message": "Mensaje",
-      "submit": "Enviar",
-      "success": "¡Mensaje enviado! Te contactaremos pronto.",
+      "submit": "Enviar por WhatsApp",
+      "success": "WhatsApp abierto. Te contactaremos pronto.",
       "error": "Error al enviar. Intenta nuevamente."
     }
   },

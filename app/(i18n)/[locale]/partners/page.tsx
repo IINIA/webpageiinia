@@ -2,38 +2,41 @@ import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FadeIn } from '@/components/anim/fade-in';
+import Link from 'next/link';
 import { Handshake } from 'lucide-react';
+import { getLocalizedMetadata } from '@/lib/seo';
 
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Socios' : 'Partners',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Socios y alianzas' : 'Partners and Alliances',
     description:
       locale === 'es'
-        ? 'Colaboramos con las mejores empresas tecnológicas'
-        : 'We collaborate with the best tech companies',
-  };
+        ? 'Alianzas tecnológicas e industriales que respaldan las soluciones de IA de IINIA.'
+        : 'Technology and industrial alliances that support IINIA AI solutions.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/partners',
+  });
 }
 
-// TODO: Replace with real partner data
 const partnerCategories = [
   {
-    titleEs: ' Socios Tecnológicos',
-    titleEn: ' Technology Partners',
-    partners: ['AWS', 'Google Cloud', 'Microsoft Azure', 'NVIDIA'],
+    titleEs: 'Socios tecnológicos',
+    titleEn: 'Technology partners',
+    partners: ['NVIDIA', 'EXXACTcorp', 'Flō Networks'],
   },
   {
-    titleEs: ' Socios Integradores',
-    titleEn: ' System Integrators',
-    partners: ['Partner A', 'Partner B', 'Partner C'],
+    titleEs: 'Ecosistema industrial',
+    titleEn: 'Industrial ecosystem',
+    partners: ['Teleflex', 'Hubbell', 'IA HUB MX'],
   },
   {
-    titleEs: ' Alianzas Académicas',
-    titleEn: ' Academic Partnerships',
-    partners: ['University X', 'Research Center Y', 'Institute Z'],
+    titleEs: 'Canales de contacto',
+    titleEn: 'Contact channels',
+    partners: ['LinkedIn IINIA', 'Facebook IINIA', 'contacto.iinia.ai'],
   },
 ];
 
@@ -85,14 +88,20 @@ export default async function PartnersPage({ params: { locale } }: Props) {
           <CardContent className="py-12 text-center">
             <h2 className="mb-4 text-2xl font-bold">
               {locale === 'es'
-                ? ' ¿Quieres ser socio?'
-                : ' Want to become a partner?'}
+                ? '¿Quieres construir una alianza con IINIA?'
+                : 'Want to build a partnership with IINIA?'}
             </h2>
-            <p className="text-muted-foreground">
+            <p className="mb-6 text-muted-foreground">
               {locale === 'es'
-                ? ' Contáctanos en partnerships@iinia.com'
-                : ' Contact us at partnerships@iinia.com'}
+                ? 'Comparte tu caso y nuestro equipo evaluará la colaboración adecuada.'
+                : 'Share your use case and our team will evaluate the right collaboration path.'}
             </p>
+            <Link
+              href={`/${locale}/contact`}
+              className="inline-flex rounded-md bg-brand-600 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-900"
+            >
+              {locale === 'es' ? 'Hablar con IINIA' : 'Talk to IINIA'}
+            </Link>
           </CardContent>
         </Card>
       </FadeIn>

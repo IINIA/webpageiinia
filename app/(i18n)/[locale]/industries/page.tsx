@@ -3,19 +3,22 @@ import { getTranslations } from 'next-intl/server';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { FadeIn } from '@/components/anim/fade-in';
 import { Factory, Pill, Cpu, Car, Zap, Package } from 'lucide-react';
+import { getLocalizedMetadata } from '@/lib/seo';
 
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Industrias' : 'Industries',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Industrias que servimos' : 'Industries We Serve',
     description:
       locale === 'es'
-        ? 'Experiencia especializada en múltiples sectores'
-        : 'Specialized expertise across multiple sectors',
-  };
+        ? 'IA industrial para automotriz, farmacéutica, electrónica, manufactura, energía y logística.'
+        : 'Industrial AI for automotive, pharmaceutical, electronics, manufacturing, energy, and logistics teams.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/industries',
+  });
 }
 
 const industriesData = [

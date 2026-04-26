@@ -3,43 +3,53 @@ import { getTranslations } from 'next-intl/server';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { FadeIn } from '@/components/anim/fade-in';
 import { ContactForm } from '@/components/forms/contact-form';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { ExternalLink, Linkedin, Mail, MessageCircle } from 'lucide-react';
+import { getLocalizedMetadata } from '@/lib/seo';
 
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Contacto' : 'Contact',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Contacto IINIA' : 'Contact IINIA',
     description:
       locale === 'es'
-        ? 'Conversemos sobre cómo la IA puede transformar tu negocio'
-        : "Let's talk about how AI can transform your business",
-  };
+        ? 'Habla con IINIA por WhatsApp o correo para evaluar tu caso de IA industrial.'
+        : 'Reach IINIA by WhatsApp or email to evaluate your industrial AI use case.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/contact',
+  });
 }
 
 const contactInfo = [
   {
     icon: Mail,
-    labelEs: ' Email',
-    labelEn: ' Email',
+    labelEs: 'Email',
+    labelEn: 'Email',
     value: 'contacto@iinia.ai',
     href: 'mailto:contacto@iinia.ai',
   },
   {
-    icon: Phone,
-    labelEs: ' Teléfono',
-    labelEn: ' Phone',
-    value: '+1 (555) 123-4567',
-    href: 'tel:+15551234567',
+    icon: MessageCircle,
+    labelEs: 'WhatsApp',
+    labelEn: 'WhatsApp',
+    value: '+52 656 595 1211',
+    href: 'https://wa.me/526565951211',
   },
   {
-    icon: MapPin,
-    labelEs: ' Oficina',
-    labelEn: ' Office',
-    value: 'San Francisco, CA',
-    href: null,
+    icon: Linkedin,
+    labelEs: 'LinkedIn',
+    labelEn: 'LinkedIn',
+    value: 'IINIA',
+    href: 'https://linkedin.com/company/iinia',
+  },
+  {
+    icon: ExternalLink,
+    labelEs: 'Links de contacto',
+    labelEn: 'Contact links',
+    value: 'contacto.iinia.ai',
+    href: 'https://contacto.iinia.ai',
   },
 ];
 
@@ -77,6 +87,8 @@ export default async function ContactPage({ params: { locale } }: Props) {
                       {info.href ? (
                         <a
                           href={info.href}
+                          target={info.href.startsWith('http') ? '_blank' : undefined}
+                          rel={info.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                           className="text-sm text-muted-foreground hover:text-brand-600 transition-colors"
                         >
                           {info.value}
@@ -98,8 +110,8 @@ export default async function ContactPage({ params: { locale } }: Props) {
             <CardHeader>
               <CardTitle className="text-2xl">
                 {locale === 'es'
-                  ? ' Envíanos un mensaje'
-                  : ' Send us a message'}
+                  ? 'Envíanos un mensaje por WhatsApp'
+                  : 'Send us a WhatsApp message'}
               </CardTitle>
             </CardHeader>
             <CardContent>

@@ -1,21 +1,25 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { Card, CardContent } from '@/components/ui/card';
 import { FadeIn } from '@/components/anim/fade-in';
 import { Briefcase } from 'lucide-react';
+import { getLocalizedMetadata } from '@/lib/seo';
 
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Carreras' : 'Careers',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Carreras en IINIA' : 'Careers at IINIA',
     description:
       locale === 'es'
-        ? 'Únete a nuestro equipo de innovadores'
-        : 'Join our team of innovators',
-  };
+        ? 'Conecta con IINIA para participar en proyectos de IA industrial, visión artificial, datos e infraestructura.'
+        : 'Connect with IINIA to work on industrial AI, computer vision, data, and infrastructure projects.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/careers',
+  });
 }
 
 export default async function CareersPage({ params: { locale } }: Props) {
@@ -43,16 +47,15 @@ export default async function CareersPage({ params: { locale } }: Props) {
             <h2 className="mb-4 text-2xl font-bold">{t('coming_soon')}</h2>
             <p className="mb-8 text-muted-foreground">
               {locale === 'es'
-                ? ' Estamos creciendo rápidamente y pronto abriremos nuevas posiciones. Sigue nuestras redes sociales para estar al tanto de oportunidades.'
-                : " We're growing rapidly and will soon open new positions. Follow our social media to stay updated on opportunities."}
+                ? 'Estamos formando talento en IA industrial, visión por computadora, datos e infraestructura. Si quieres participar, comparte tu perfil con nuestro equipo.'
+                : 'We are building talent across industrial AI, computer vision, data, and infrastructure. If you want to contribute, share your profile with our team.'}
             </p>
-            <div className="rounded-lg border bg-muted/20 p-6">
-              <p className="text-sm text-muted-foreground">
-                {locale === 'es'
-                  ? ' Envía tu CV a careers@iinia.com'
-                  : ' Send your CV to careers@iinia.com'}
-              </p>
-            </div>
+            <Link
+              href={`/${locale}/contact`}
+              className="rounded-md bg-brand-600 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-brand-900"
+            >
+              {locale === 'es' ? 'Enviar perfil' : 'Send profile'}
+            </Link>
           </CardContent>
         </Card>
       </FadeIn>

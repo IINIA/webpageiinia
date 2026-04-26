@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
-import { Github, Twitter, Linkedin, Mail } from 'lucide-react';
+import { Facebook, Globe, Linkedin, Mail, MessageCircle } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { trackEvent } from '@/lib/analytics';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -33,15 +34,15 @@ export function Footer() {
     { name: tNav('cases'), href: `/${locale}/cases` },
   ];
 
-  const legalLinks = [
-    { name: t('privacy'), href: `/${locale}/privacy` },
-    { name: t('terms'), href: `/${locale}/terms` },
-  ];
-
   const socialLinks = [
-    { name: 'Twitter', href: '#', icon: Twitter },
-    { name: 'LinkedIn', href: '#', icon: Linkedin },
-    { name: 'GitHub', href: '#', icon: Github },
+    { name: 'WhatsApp', href: 'https://wa.me/526565951211', icon: MessageCircle },
+    { name: 'LinkedIn', href: 'https://linkedin.com/company/iinia', icon: Linkedin },
+    {
+      name: 'Facebook',
+      href: 'https://www.facebook.com/people/IINIA-Industrial-Intelligence-and-IA-Solutions/61586761854900/',
+      icon: Facebook,
+    },
+    { name: 'Links', href: 'https://contacto.iinia.ai', icon: Globe },
     { name: 'Email', href: 'mailto:contacto@iinia.ai', icon: Mail },
   ];
 
@@ -118,6 +119,27 @@ export function Footer() {
               <p className="text-sm text-muted-foreground">
                 Ciudad Juárez, México
               </p>
+              <div className="flex gap-3 pt-2">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target={link.href.startsWith('http') ? '_blank' : undefined}
+                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    onClick={() =>
+                      trackEvent({
+                        action: 'footer_contact_click',
+                        category: 'contact',
+                        label: link.name.toLowerCase(),
+                      })
+                    }
+                    aria-label={link.name}
+                    className="text-muted-foreground transition-colors hover:text-foreground"
+                  >
+                    <link.icon className="h-5 w-5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

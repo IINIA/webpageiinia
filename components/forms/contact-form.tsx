@@ -10,6 +10,9 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { trackEvent } from '@/lib/analytics';
+
+const whatsappNumber = '526565951211';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -36,10 +39,38 @@ export function ContactForm() {
   const onSubmit = async (data: ContactFormData) => {
     setStatus('loading');
 
-    // TODO: Replace with actual API call
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log('Form data:', data);
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Contact request failed');
+      }
+
+      const message = [
+        'Hola IINIA, me gustaría recibir información.',
+        '',
+        `Nombre: ${data.name}`,
+        `Email: ${data.email}`,
+        `Empresa: ${data.company}`,
+        `Mensaje: ${data.message}`,
+      ].join('\n');
+
+      window.open(
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`,
+        '_blank',
+        'noopener,noreferrer'
+      );
+
+      trackEvent({
+        action: 'contact_submit',
+        category: 'lead',
+        label: 'whatsapp',
+      });
+
       setStatus('success');
       reset();
 

@@ -1,10 +1,11 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { FadeIn } from '@/components/anim/fade-in';
+import { trackEvent } from '@/lib/analytics';
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 const ParticlesBackground = dynamic(
@@ -25,6 +26,7 @@ const HeroShowcase = dynamic(
 
 export function Hero() {
   const t = useTranslations('home.hero');
+  const locale = useLocale();
 
   return (
     <section className="relative overflow-hidden py-20 lg:py-40">
@@ -47,13 +49,25 @@ export function Hero() {
 
             <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
               <Button size="xl" variant="default" asChild>
-                <Link href="#contact">
+                <Link
+                  href={`/${locale}/contact`}
+                  onClick={() =>
+                    trackEvent({ action: 'hero_cta_click', category: 'navigation', label: 'contact' })
+                  }
+                >
                   {t('cta_primary')}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button size="xl" variant="outline" asChild>
-                <Link href="#solutions">{t('cta_secondary')}</Link>
+                <Link
+                  href={`/${locale}/solutions`}
+                  onClick={() =>
+                    trackEvent({ action: 'hero_cta_click', category: 'navigation', label: 'solutions' })
+                  }
+                >
+                  {t('cta_secondary')}
+                </Link>
               </Button>
             </div>
 

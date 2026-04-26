@@ -5,19 +5,22 @@ import { caseStudies } from '@/content/case-studies';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/anim/fade-in';
+import { getLocalizedMetadata } from '@/lib/seo';
 
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Casos de Éxito' : 'Success Stories',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Casos de éxito de IA industrial' : 'Industrial AI Success Stories',
     description:
       locale === 'es'
-        ? 'Casos de éxito con resultados medibles impulsados por IA'
-        : 'AI-driven success stories with measurable outcomes',
-  };
+        ? 'Resultados medibles en calidad, seguridad y eficiencia operativa con soluciones de IA industrial.'
+        : 'Measurable quality, safety, and operational efficiency outcomes from industrial AI deployments.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/cases',
+  });
 }
 
 export default async function CasesPage({ params: { locale } }: Props) {

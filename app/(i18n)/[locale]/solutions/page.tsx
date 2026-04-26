@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/anim/fade-in';
 import Link from 'next/link';
 import { solutions } from '@/content/solutions';
+import { getLocalizedMetadata } from '@/lib/seo';
 import { cn } from '@/lib/utils';
 
 type Props = {
@@ -14,13 +15,15 @@ type Props = {
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Soluciones' : 'Solutions',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Soluciones de IA industrial' : 'Industrial AI Solutions',
     description:
       locale === 'es'
-        ? 'Tecnología de IA adaptada a tus necesidades industriales'
-        : 'AI technology adapted to your industrial needs',
-  };
+        ? 'Visión artificial, LLMs empresariales e infraestructura GPU para llevar IA industrial a producción.'
+        : 'Computer vision, enterprise LLMs, and GPU infrastructure to take industrial AI into production.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/solutions',
+  });
 }
 
 export default async function SolutionsPage({ params: { locale } }: Props) {

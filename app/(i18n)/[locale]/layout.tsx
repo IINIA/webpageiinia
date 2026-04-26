@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import { Navbar } from '@/components/nav/navbar';
 import { Footer } from '@/components/nav/footer';
+import { Analytics } from '@/components/analytics';
 import { Providers } from './providers';
 import '@/styles/globals.css';
 import type { Metadata } from 'next';
@@ -70,6 +71,7 @@ export default async function LocaleLayout({
             <Footer />
           </NextIntlClientProvider>
         </Providers>
+        <Analytics />
       </body>
     </html>
   );

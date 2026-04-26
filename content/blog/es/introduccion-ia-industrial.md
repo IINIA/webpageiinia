@@ -41,4 +41,4 @@ La IA industrial no es el futuro - es el presente. Las empresas que adopten esta
 
 ---
 
-*Este es contenido placeholder. Reemplazar con artículo real.*
+En IINIA priorizamos implementaciones que puedan probar valor en planta: datos disponibles, responsables claros, métricas de negocio y una ruta de despliegue segura.

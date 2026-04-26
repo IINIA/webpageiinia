@@ -6,19 +6,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/anim/fade-in';
 import { Eye, Brain, Cloud, CheckCircle2, Shield, Users, MapPin } from 'lucide-react';
+import { getLocalizedMetadata } from '@/lib/seo';
 
 type Props = {
   params: { locale: string };
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Sobre Nosotros' : 'About Us',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Sobre IINIA' : 'About IINIA',
     description:
       locale === 'es'
-        ? 'Spin-off de inteligencia artificial en Ciudad Juárez que impulsa el desarrollo de talento y crea soluciones para la industria'
-        : 'Artificial intelligence spin-off in Ciudad Juárez that drives talent development and creates solutions for industry',
-  };
+        ? 'Spin-off de inteligencia artificial en Ciudad Juárez enfocado en talento, visión artificial, LLMs e IA industrial.'
+        : 'Artificial intelligence spin-off in Ciudad Juárez focused on talent, computer vision, LLMs, and industrial AI.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/about',
+  });
 }
 
 export default async function AboutPage({ params: { locale } }: Props) {

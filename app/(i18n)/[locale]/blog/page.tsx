@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { FadeIn } from '@/components/anim/fade-in';
 import { getAllPosts } from '@/lib/blog';
+import { getLocalizedMetadata } from '@/lib/seo';
 import { formatDate } from '@/lib/utils';
 import { Calendar, User } from 'lucide-react';
 
@@ -14,13 +15,15 @@ type Props = {
 };
 
 export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
-  return {
-    title: locale === 'es' ? 'Blog' : 'Blog',
+  return getLocalizedMetadata({
+    title: locale === 'es' ? 'Blog de IA industrial' : 'Industrial AI Blog',
     description:
       locale === 'es'
-        ? 'Insights y tendencias en IA industrial'
-        : 'Insights and trends in industrial AI',
-  };
+        ? 'Ideas, tendencias y guías prácticas sobre IA industrial, visión artificial y LLMs empresariales.'
+        : 'Ideas, trends, and practical guides on industrial AI, computer vision, and enterprise LLMs.',
+    locale: locale === 'es' ? 'es' : 'en',
+    path: '/blog',
+  });
 }
 
 export default async function BlogPage({ params: { locale } }: Props) {
